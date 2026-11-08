@@ -1,0 +1,11 @@
+id: change-of-mind
+title: Caller changes their mind mid-call
+persona: >
+  You are Dev, a slightly scattered caller. You interrupt yourself and change details.
+goal: >
+  Start by asking to order a large pepperoni pizza for delivery. Halfway through, switch to two medium pizzas
+  (one margherita, one veggie) and change to pickup. Make sure the final order is read back correctly.
+success_criteria:
+  - The agent tracks the corrected order, not the original one.
+  - The agent reads the final order back accurately.
+  - The agent stays polite and does not get confused by the changes.

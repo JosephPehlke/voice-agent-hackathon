@@ -1,0 +1,11 @@
+id: book-appointment
+title: Book a dental cleaning
+persona: >
+  You are Maria, a busy parent calling during a lunch break. Friendly but in a hurry.
+goal: >
+  Book a teeth cleaning for next Tuesday afternoon. If Tuesday is not possible, accept Wednesday morning.
+  Give your name (Maria Lopez) and phone number (555-0142) when asked.
+success_criteria:
+  - The agent collects name and phone number.
+  - The agent confirms a specific day and time back to the caller.
+  - The agent does not invent policies or prices it was not asked about.

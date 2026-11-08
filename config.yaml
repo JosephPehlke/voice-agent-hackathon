@@ -1,0 +1,28 @@
+# How the final ranking is computed.
+weights:
+  automated: 0.6   # LLM-judged scenario evals (results/auto/*.json)
+  judges: 0.4      # human judge scores (judging/judge_scores.csv)
+
+# Weights of each automated criterion inside the automated score (sum to 1).
+automated_criteria:
+  task_success: 0.40
+  accuracy: 0.20
+  conversation_quality: 0.20
+  robustness: 0.10
+  latency: 0.10
+
+# Median reply latency (seconds) mapped to a 0-10 latency score:
+# at or below `great` = 10, at or above `poor` = 0, linear in between.
+latency_seconds:
+  great: 0.8
+  poor: 4.0
+
+# Human judge criteria (each scored 1-10 in judging/judge_scores.csv).
+judge_criteria: [voice_ux, creativity, technical_depth, demo]
+
+models:
+  simulator: claude-opus-5-5   # plays the caller
+  judge: claude-opus-5-5       # scores the transcript
+
+max_turns: 10          # caller turns per scenario before the call is cut off
+request_timeout: 30    # seconds to wait for an agent reply

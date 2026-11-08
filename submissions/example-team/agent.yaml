@@ -1,0 +1,12 @@
+# Copy this folder to submissions/<your-team-slug>/ and fill it in.
+team: Example Team
+members: [Ada Lovelace, Alan Turing]
+project: Echo receptionist
+description: Reference agent that ships with the repo (examples/echo_agent.py).
+repo: https://github.com/JosephPehlke/voice-agent-hackathon
+demo_video: ""   # optional link, used by human judges
+
+# How the evaluator reaches your agent. See submissions/README.md for the protocol.
+endpoint: http://localhost:8765/chat
+# Optional: name of an env var / GitHub secret holding a bearer token for your endpoint.
+auth_env: ""

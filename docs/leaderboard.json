@@ -1,0 +1,20 @@
+{
+  "updated": "2026-11-08 20:59 UTC",
+  "rows": [
+    {
+      "slug": "example-team",
+      "team": "Example Team",
+      "project": "Echo receptionist",
+      "repo": "https://github.com/JosephPehlke/voice-agent-hackathon",
+      "automated": null,
+      "judges": null,
+      "judge_count": 0,
+      "final": null,
+      "partial": true,
+      "mock": false,
+      "median_latency_s": null,
+      "scenarios": {},
+      "rank": null
+    }
+  ]
+}

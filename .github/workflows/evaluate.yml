@@ -1,0 +1,68 @@
+name: Evaluate agents
+on:
+  push:
+    branches: [main]
+    paths: ["submissions/**", "scenarios/**", "judging/**", "config.yaml", "evals/**"]
+  workflow_dispatch:
+    inputs:
+      teams:
+        description: "Space-separated team slugs to evaluate (blank = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: evaluate
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 2 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+
+      - name: Decide which teams to evaluate
+        id: pick
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "${{ inputs.teams }}" ]; then echo "args=$(printf -- '--team %s ' ${{ inputs.teams }})" >> "$GITHUB_OUTPUT"
+            else echo "args=ALL" >> "$GITHUB_OUTPUT"; fi
+            exit 0
+          fi
+          changed=$(git diff --name-only HEAD~1 HEAD)
+          if echo "$changed" | grep -qE '^(scenarios/|config.yaml|evals/)'; then
+            echo "args=ALL" >> "$GITHUB_OUTPUT"
+          else
+            teams=$(echo "$changed" | grep -oP '^submissions/\K[^/]+(?=/agent.yaml)' | sort -u)
+            if [ -n "$teams" ]; then echo "args=$(printf -- '--team %s ' $teams)" >> "$GITHUB_OUTPUT"
+            else echo "args=NONE" >> "$GITHUB_OUTPUT"; fi
+          fi
+
+      - name: Start reference agent (for example-team)
+        run: python examples/echo_agent.py &
+
+      - name: Run evals
+        if: steps.pick.outputs.args != 'NONE'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          args="${{ steps.pick.outputs.args }}"
+          [ "$args" = "ALL" ] && args=""
+          python -m evals.run $args || echo "::warning::some teams could not be evaluated"
+
+      - name: Rebuild leaderboard
+        run: python -m evals.leaderboard
+
+      - name: Commit results
+        run: |
+          git config user.name "leaderboard-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results LEADERBOARD.md docs
+          git diff --cached --quiet || git commit -m "Update leaderboard [skip ci]"
+          git push

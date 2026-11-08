@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voice Agent Leaderboard</title>
+<style>
+:root{--bg:#fafaf9;--fg:#1c1917;--muted:#78716c;--card:#fff;--line:#e7e5e4;--accent:#4f46e5;--gold:#ca8a04}
+@media (prefers-color-scheme:dark){:root{--bg:#0c0a09;--fg:#f5f5f4;--muted:#a8a29e;--card:#1c1917;--line:#292524;--accent:#818cf8;--gold:#facc15}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,sans-serif}
+main{max-width:960px;margin:0 auto;padding:32px 16px}h1{margin:0 0 4px;font-size:28px}p.sub{color:var(--muted);margin:0 0 24px}
+.wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:620px}th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}td.rank{font-weight:700;width:56px}tr.top td.rank{color:var(--gold)}
+.final{font-weight:700;color:var(--accent)}.proj{color:var(--muted);font-size:13px}a{color:inherit}
+.tag{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:6px}
+</style></head><body><main>
+<h1>Voice Agent Leaderboard</h1>
+<p class="sub">Updated 2026-11-08 20:59 UTC · Final = 0.6 × automated evals + 0.4 × judges</p>
+<div class="wrap"><table><thead><tr><th>Rank</th><th>Team</th><th style="text-align:right">Final</th>
+<th style="text-align:right">Automated</th><th style="text-align:right">Judges</th><th style="text-align:right">Latency</th></tr></thead>
+<tbody><tr class=""><td class="rank">–</td><td><a href="https://github.com/JosephPehlke/voice-agent-hackathon">Example Team</a><div class="proj">Echo receptionist</div></td><td class="n final">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr></tbody></table></div>
+</main></body></html>
